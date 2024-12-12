@@ -7,7 +7,7 @@
   <style>
     :root {
       --bg-gradient: linear-gradient(to bottom, #6a11cb, #2575fc);
-      --bg-color: rgba(255, 255, 255, 0.1);
+      --bg-color: #0000FF(255, 255, 255, 0.1);
       --text-color: #fff;
       --button-bg: #ff6a3d;
       --button-hover: #ff3a00;
@@ -128,10 +128,26 @@
     .dark-mode-toggle:hover {
       background: var(--button-hover);
     }
+    .fullscreen-toggle {
+      position: absolute;
+      bottom: 370px;
+      right: 90px;
+      background: var(--button-bg);
+      color: var(--text-color);
+      padding: 5px 10px;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    .fullscreen-toggle:hover {
+      background: var(--button-hover);
+    }
   </style>
 </head>
 <body>
   <button class="dark-mode-toggle" onclick="toggleDarkMode()">✳️</button>
+  <button class="fullscreen-toggle" onclick="toggleFullScreen()">⛶</button>
+
   <div class="container">
     <h1>Botplays Terabox Player</h1>
     <p>Enter the TeraBox video link to play your video.</p>
@@ -178,6 +194,20 @@
     function toggleDarkMode() {
       const currentTheme = document.body.getAttribute('data-theme');
       document.body.setAttribute('data-theme', currentTheme === 'dark' ? 'light' : 'dark');
+    }
+
+    function toggleFullScreen() {
+      const videoFrame = document.getElementById('videoFrame');
+
+      if (videoFrame.requestFullscreen) {
+        videoFrame.requestFullscreen();
+      } else if (videoFrame.mozRequestFullScreen) { // Firefox
+        videoFrame.mozRequestFullScreen();
+      } else if (videoFrame.webkitRequestFullscreen) { // Chrome and Safari
+        videoFrame.webkitRequestFullscreen();
+      } else if (videoFrame.msRequestFullscreen) { // IE/Edge
+        videoFrame.msRequestFullscreen();
+      }
     }
   </script>
 </body>
